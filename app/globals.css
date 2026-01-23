@@ -1,26 +1,73 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a12;
+  --foreground: #f1f5f9;
+  --primary: #0077FF;
+  --primary-dark: #0059c2;
+  --primary-light: #3399ff;
+  --accent: #00d4ff;
+  --gradient-start: #050510;
+  --gradient-mid: #0a1628;
+  --gradient-end: #001a33;
+  --glass-bg: rgba(0, 119, 255, 0.08);
+  --glass-border: rgba(0, 119, 255, 0.2);
+}
+
+.light {
+  --background: #f0f4f8;
+  --foreground: #0f172a;
+  --gradient-start: #e0e8f0;
+  --gradient-mid: #c8d8e8;
+  --gradient-end: #d0e0f0;
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(0, 119, 255, 0.3);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) {
+    --background: #f0f4f8;
+    --foreground: #0f172a;
+    --gradient-start: #e0e8f0;
+    --gradient-mid: #c8d8e8;
+    --gradient-end: #d0e0f0;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(0, 119, 255, 0.3);
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-onest);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* Animated gradient background */
+.gradient-bg {
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Glass card effect */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+}
+

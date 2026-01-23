@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Storyblok x Next.js Boilerplate
+
+A modern Next.js boilerplate integrated with Storyblok CMS, featuring the Visual Editor, Tailwind CSS 4, and TypeScript.
+
+## Prerequisites
+
+- Node.js 18+
+- A [Storyblok](https://www.storyblok.com/) account and space
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Configure environment variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env` file in the root directory:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+NEXT_PUBLIC_STORYBLOK_CONTENT_API_ACCESS_TOKEN=your_preview_token_here
+```
 
-## Learn More
+You can find your preview token in Storyblok under **Settings → Access Tokens**.
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Run the development server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+yarn dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Open [http://localhost:3000](http://localhost:3000) to view your site.
 
-## Deploy on Vercel
+## Visual Editor Setup
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To enable live editing in Storyblok's Visual Editor:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Go to your Storyblok space → **Settings** → **Visual Editor**
+2. Set the **Preview URL** to `https://localhost:3000/`
+3. Run the dev server with HTTPS:
+
+```bash
+yarn dev --experimental-https
+```
+
+## Project Structure
+
+```
+app/
+├── components/
+│   ├── storyblok/       # Storyblok content components
+│   │   ├── Feature.tsx
+│   │   ├── Grid.tsx
+│   │   ├── Page.tsx
+│   │   └── Teaser.tsx
+│   └── StoryblokProvider.tsx
+├── lib/
+│   └── storyblok.ts     # Storyblok SDK configuration
+├── globals.css          # Tailwind CSS styles
+├── layout.tsx           # Root layout
+└── page.tsx             # Home page
+```
+
+## Adding New Components
+
+1. Create a new component in `app/components/storyblok/`:
+
+```tsx
+import { storyblokEditable, SbBlokData } from "@storyblok/react/rsc";
+
+interface HeroBlok extends SbBlokData {
+    title?: string;
+    subtitle?: string;
+}
+
+export default function Hero({ blok }: { blok: HeroBlok }) {
+    return (
+        <section {...storyblokEditable(blok)}>
+            <h1>{blok.title}</h1>
+            <p>{blok.subtitle}</p>
+        </section>
+    );
+}
+```
+
+2. Register it in `app/lib/storyblok.ts`:
+
+```tsx
+import Hero from "@components/storyblok/Hero";
+
+const components = {
+    // ...existing components
+    hero: Hero,
+};
+```
+
+3. Create the matching content type in Storyblok's Block Library.
+
+## Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **CMS**: [Storyblok](https://www.storyblok.com/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Language**: TypeScript
+
+## Useful Links
+
+- [Storyblok React SDK](https://github.com/storyblok/storyblok-react)
+- [Storyblok Next.js Guide](https://www.storyblok.com/docs/guide/integrations/nextjs)
+- [Next.js Documentation](https://nextjs.org/docs)
+
+## Deployment
+
+Deploy to [Vercel](https://vercel.com/) with one click:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+Remember to add your `NEXT_PUBLIC_STORYBLOK_CONTENT_API_ACCESS_TOKEN` environment variable in your deployment settings.
