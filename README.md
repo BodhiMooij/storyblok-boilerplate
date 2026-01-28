@@ -43,30 +43,51 @@ yarn dev
 
 Open [https://localhost:3000](https://localhost:3000) to view your site. The dev server runs with HTTPS and a self-signed certificate. **First time only:** your browser will warn about the certificate — choose “Advanced” → “Proceed to localhost (unsafe)” (or equivalent) to continue.
 
-## Visual Editor Setup
+## Dynamic pages
 
-To enable live editing in Storyblok's Visual Editor:
+Any **page** you create in Storyblok is available on the site at the same path:
+
+- Storyblok story with slug `home` → `https://yoursite.com/`
+- Storyblok story with slug `about` → `https://yoursite.com/about`
+- Storyblok story with slug `blog/my-post` → `https://yoursite.com/blog/my-post`
+
+Create a new **Page** (or folder + page) in Storyblok and publish it; the URL will match the story’s slug.
+
+## Visual Editor (local and production)
+
+To use the Visual Editor and edit content in real time:
 
 1. Go to your Storyblok space → **Settings** → **Visual Editor**
-2. Set the **Preview URL** to `https://localhost:3000/`
-3. Run the dev server (`yarn dev` — HTTPS is already enabled).
+2. Set the **Preview URL**:
+   - **Local:** `https://localhost:3000/preview`
+   - **Production:** `https://your-domain.com/preview`
+3. Run the dev server (`yarn dev`) or use your deployed site.
+
+When you open a story in the Visual Editor, Storyblok loads `/preview/<slug>`. That route enables **draft mode** so you see unpublished changes.
 
 ## Project Structure
 
 ```
 app/
+├── [[...slug]]/         # Dynamic pages (published content)
+│   └── page.tsx
+├── preview/
+│   └── [[...slug]]/     # Visual Editor (draft content + draft mode)
+│       ├── layout.tsx
+│       └── page.tsx
 ├── components/
 │   ├── storyblok/       # Storyblok content components
 │   │   ├── Feature.tsx
 │   │   ├── Grid.tsx
 │   │   ├── Page.tsx
 │   │   └── Teaser.tsx
+│   ├── PageLayout.tsx
 │   └── StoryblokProvider.tsx
 ├── lib/
 │   └── storyblok.ts     # Storyblok SDK configuration
-├── globals.css          # Tailwind CSS styles
-├── layout.tsx           # Root layout
-└── page.tsx             # Home page
+├── globals.css
+├── layout.tsx
+└── not-found.tsx
 ```
 
 ## Adding New Components
