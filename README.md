@@ -4,18 +4,28 @@ A modern Next.js boilerplate integrated with Storyblok CMS, featuring the Visual
 
 ## Prerequisites
 
-- Node.js 18+
+- **Node.js 20.9+ or 22** (LTS). The project includes an [`.nvmrc`](.nvmrc) file — if you use [nvm](https://github.com/nvm-sh/nvm), run `nvm use` in the project root to switch to the recommended version.
 - A [Storyblok](https://www.storyblok.com/) account and space
 
 ## Getting Started
 
-### 1. Install dependencies
+### 1. Use the correct Node version
+
+If you use [nvm](https://github.com/nvm-sh/nvm), run this in the project root so the Node version matches [`.nvmrc`](.nvmrc):
+
+```bash
+nvm use
+```
+
+If the version isn’t installed yet: `nvm install` then `nvm use`.
+
+### 2. Install dependencies
 
 ```bash
 yarn install
 ```
 
-### 2. Configure environment variables
+### 3. Configure environment variables
 
 Create a `.env` file in the root directory:
 
@@ -25,7 +35,7 @@ NEXT_PUBLIC_STORYBLOK_CONTENT_API_ACCESS_TOKEN=your_preview_token_here
 
 You can find your preview token in Storyblok under **Settings → Access Tokens**.
 
-### 3. Run the development server
+### 4. Run the development server
 
 ```bash
 yarn dev
