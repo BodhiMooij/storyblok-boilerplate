@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
-import { Onest, Geist_Mono } from "next/font/google";
+import { Onest } from "next/font/google";
 import "./globals.css";
 import StoryblokProvider from "./components/StoryblokProvider";
 
 const onest = Onest({
     variable: "--font-onest",
-    subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
     subsets: ["latin"],
 });
 
@@ -26,7 +21,7 @@ export default function RootLayout({
     return (
         <StoryblokProvider>
             <html lang="en" suppressHydrationWarning>
-                <body className={`${onest.className} ${geistMono.variable} antialiased`}>
+                <body className={`${onest.className} antialiased`}>
                     {children}
                 </body>
             </html>

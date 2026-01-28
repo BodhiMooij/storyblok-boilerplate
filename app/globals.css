@@ -40,7 +40,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
-  --color-primary-dark: var(--primary-dark);
+  --color-primarydark: var(--primary-dark);
   --color-accent: var(--accent);
   --font-sans: var(--font-onest);
   --font-mono: var(--font-geist-mono);

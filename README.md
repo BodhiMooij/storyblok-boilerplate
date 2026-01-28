@@ -31,7 +31,7 @@ You can find your preview token in Storyblok under **Settings → Access Tokens*
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view your site.
+Open [https://localhost:3000](https://localhost:3000) to view your site. The dev server runs with HTTPS and a self-signed certificate. **First time only:** your browser will warn about the certificate — choose “Advanced” → “Proceed to localhost (unsafe)” (or equivalent) to continue.
 
 ## Visual Editor Setup
 
@@ -39,11 +39,7 @@ To enable live editing in Storyblok's Visual Editor:
 
 1. Go to your Storyblok space → **Settings** → **Visual Editor**
 2. Set the **Preview URL** to `https://localhost:3000/`
-3. Run the dev server with HTTPS:
-
-```bash
-yarn dev --experimental-https
-```
+3. Run the dev server (`yarn dev` — HTTPS is already enabled).
 
 ## Project Structure
 
